@@ -12,6 +12,7 @@ namespace BG3TreasureTableCreate
         static void Main(string[] args)
         {
             var items = new List<string>();
+            var skipList = new List<string>() { "AMX_SUMMON_BASKET_AMULET" };
             foreach (var fileName in new[] { "Armor", "Weapon" })
             {
                 var file = fileName + ".txt";
@@ -30,7 +31,10 @@ namespace BG3TreasureTableCreate
                         if (!line.StartsWith(id)) continue;
                         if (!line.EndsWith("\"")) continue;
 
-                        items.Add(line.Substring(idLen, line.Length - idLen1));
+                        line = line.Substring(idLen, line.Length - idLen1);
+                        if (skipList.Contains(line)) continue;
+
+                        items.Add(line);
                     }
                 }
             }
