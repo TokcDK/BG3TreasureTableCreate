@@ -20,14 +20,17 @@ namespace BG3TreasureTableCreate
                 using (var reader = new StreamReader(file))
                 {
                     string line;
+                    string id = "new entry \"";
+                    int idLen = id.Length;
+                    int idLen1 = idLen+1;
                     while ((line = reader.ReadLine()) != default)
                     {
                         line = line.Trim();
 
-                        if (!line.StartsWith("new entry \"")) continue;
+                        if (!line.StartsWith(id)) continue;
                         if (!line.EndsWith("\"")) continue;
 
-                        items.Add(line.Substring(1, line.Length - 2));
+                        items.Add(line.Substring(idLen, line.Length - idLen1));
                     }
                 }
             }
